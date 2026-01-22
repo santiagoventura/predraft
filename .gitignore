@@ -3,6 +3,11 @@
 .env.local
 .env.*.local
 
+# Laravel cache files (may contain secrets)
+/bootstrap/cache/config.php
+/bootstrap/cache/packages.php
+/bootstrap/cache/services.php
+
 # Vendor directory
 /vendor/
 

@@ -453,8 +453,8 @@ PROMPT;
         $team = $data['team'] ?? null;
         $positions = $data['positions'] ?? ($playerType === 'pitchers' ? 'P' : 'UTIL');
 
-        // Try to find existing player
-        $player = Player::where('name', 'LIKE', '%' . trim($playerName) . '%')->first();
+        // Try to find existing player with fuzzy matching
+        $player = $this->findPlayerByName($playerName, $playerType);
 
         if ($player) {
             // Update player info with latest data (team changes, position changes, etc.)
@@ -489,6 +489,129 @@ PROMPT;
             'is_pitcher' => $isPitcher,
             'external_id' => null,
         ]);
+    }
+
+    /**
+     * Normalize a player name for comparison.
+     * Removes periods, normalizes suffixes, removes accents, etc.
+     */
+    protected function normalizeName(string $name): string
+    {
+        // Trim whitespace
+        $name = trim($name);
+
+        // Remove common suffixes in parentheses like "(Batter)" or "(Pitcher)"
+        $name = preg_replace('/\s*\((?:Batter|Pitcher)\)\s*$/i', '', $name);
+
+        // Normalize Jr./Jr/Junior, Sr./Sr/Senior, III, II, IV
+        $name = preg_replace('/\bJr\.?\b/i', 'Jr', $name);
+        $name = preg_replace('/\bSr\.?\b/i', 'Sr', $name);
+        $name = preg_replace('/\bJunior\b/i', 'Jr', $name);
+        $name = preg_replace('/\bSenior\b/i', 'Sr', $name);
+
+        // Remove all periods
+        $name = str_replace('.', '', $name);
+
+        // Normalize accented characters to ASCII equivalents
+        $name = $this->removeAccents($name);
+
+        // Convert to lowercase for comparison
+        $name = strtolower($name);
+
+        // Normalize multiple spaces to single space
+        $name = preg_replace('/\s+/', ' ', $name);
+
+        return trim($name);
+    }
+
+    /**
+     * Remove accents from a string.
+     */
+    protected function removeAccents(string $string): string
+    {
+        $accents = [
+            'á' => 'a', 'à' => 'a', 'ä' => 'a', 'â' => 'a', 'ã' => 'a', 'å' => 'a',
+            'é' => 'e', 'è' => 'e', 'ë' => 'e', 'ê' => 'e',
+            'í' => 'i', 'ì' => 'i', 'ï' => 'i', 'î' => 'i',
+            'ó' => 'o', 'ò' => 'o', 'ö' => 'o', 'ô' => 'o', 'õ' => 'o', 'ø' => 'o',
+            'ú' => 'u', 'ù' => 'u', 'ü' => 'u', 'û' => 'u',
+            'ñ' => 'n', 'ń' => 'n',
+            'ç' => 'c',
+            'ý' => 'y', 'ÿ' => 'y',
+            'Á' => 'A', 'À' => 'A', 'Ä' => 'A', 'Â' => 'A', 'Ã' => 'A', 'Å' => 'A',
+            'É' => 'E', 'È' => 'E', 'Ë' => 'E', 'Ê' => 'E',
+            'Í' => 'I', 'Ì' => 'I', 'Ï' => 'I', 'Î' => 'I',
+            'Ó' => 'O', 'Ò' => 'O', 'Ö' => 'O', 'Ô' => 'O', 'Õ' => 'O', 'Ø' => 'O',
+            'Ú' => 'U', 'Ù' => 'U', 'Ü' => 'U', 'Û' => 'U',
+            'Ñ' => 'N', 'Ń' => 'N',
+            'Ç' => 'C',
+            'Ý' => 'Y', 'Ÿ' => 'Y',
+        ];
+
+        return strtr($string, $accents);
+    }
+
+    /**
+     * Find a player by name with fuzzy matching.
+     */
+    protected function findPlayerByName(string $searchName, string $playerType): ?Player
+    {
+        $normalizedSearch = $this->normalizeName($searchName);
+        $isPitcher = $playerType === 'pitchers';
+
+        // First try exact match (case-insensitive)
+        $player = Player::whereRaw('LOWER(name) = ?', [strtolower(trim($searchName))])->first();
+        if ($player) {
+            return $player;
+        }
+
+        // Get candidates using LIKE query
+        // Extract first and last name parts for better matching
+        $nameParts = explode(' ', $searchName);
+        $lastName = end($nameParts);
+        // Remove Jr, Sr, II, III, IV from last name for matching
+        $lastName = preg_replace('/\b(Jr|Sr|II|III|IV)\.?\b/i', '', $lastName);
+        $lastName = trim($lastName);
+
+        $candidates = Player::where('name', 'LIKE', '%' . $lastName . '%')->get();
+
+        if ($candidates->isEmpty()) {
+            return null;
+        }
+
+        // Score each candidate
+        $bestMatch = null;
+        $bestScore = 0;
+
+        foreach ($candidates as $candidate) {
+            $normalizedCandidate = $this->normalizeName($candidate->name);
+
+            // Exact normalized match
+            if ($normalizedCandidate === $normalizedSearch) {
+                return $candidate;
+            }
+
+            // Calculate similarity score
+            similar_text($normalizedSearch, $normalizedCandidate, $percent);
+
+            // Bonus for matching player type (pitcher vs batter)
+            $typeBonus = 0;
+            if ($isPitcher && $candidate->is_pitcher) {
+                $typeBonus = 10;
+            } elseif (!$isPitcher && !$candidate->is_pitcher) {
+                $typeBonus = 10;
+            }
+
+            $score = $percent + $typeBonus;
+
+            // Must be at least 80% similar (before type bonus)
+            if ($percent >= 80 && $score > $bestScore) {
+                $bestScore = $score;
+                $bestMatch = $candidate;
+            }
+        }
+
+        return $bestMatch;
     }
 
     /**

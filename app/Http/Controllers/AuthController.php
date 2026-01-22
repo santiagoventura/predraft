@@ -7,10 +7,6 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    // Fixed credentials - change these as needed
-    private const FIXED_USERNAME = 'admin';
-    private const FIXED_PASSWORD = 'predraft2024';
-
     public function showLogin()
     {
         if (session('authenticated')) {
@@ -30,7 +26,7 @@ class AuthController extends Controller
         $username = $request->input('username');
         $password = $request->input('password');
 
-        if ($username === self::FIXED_USERNAME && $password === self::FIXED_PASSWORD) {
+        if ($username === env('AUTH_USERNAME', 'admin') && $password === env('AUTH_PASSWORD')) {
             $request->session()->regenerate();
             session(['authenticated' => true]);
 

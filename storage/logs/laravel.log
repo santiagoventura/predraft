@@ -8927,3 +8927,65 @@ Did you mean one of these?
 #3 /var/www/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
 #4 {main}
 "} 
+[2026-01-22 18:53:44] local.INFO: Fetching FanGraphs data {"url":"https://www.fangraphs.com/projections?type=fangraphsdc&stats=bat&pos=&team=0&players=0&lg=all&pageitems=2000&statgroup=fantasy&fantasypreset=dashboard"} 
+[2026-01-22 18:53:45] local.INFO: Extracted player data from FanGraphs __NEXT_DATA__ {"player_count":641,"player_type":"batters"} 
+[2026-01-22 18:57:27] local.ERROR: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '106-1-1-fangraphs' for key 'player_scores_unique' (Connection: mysql, SQL: update `player_scores` set `player_id` = 106, `player_scores`.`updated_at` = 2026-01-22 18:57:27 where `player_id` = 336) {"exception":"[object] (Illuminate\\Database\\UniqueConstraintViolationException(code: 23000): SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '106-1-1-fangraphs' for key 'player_scores_unique' (Connection: mysql, SQL: update `player_scores` set `player_id` = 106, `player_scores`.`updated_at` = 2026-01-22 18:57:27 where `player_id` = 336) at /var/www/vendor/laravel/framework/src/Illuminate/Database/Connection.php:820)
+[stacktrace]
+#0 /var/www/vendor/laravel/framework/src/Illuminate/Database/Connection.php(779): Illuminate\\Database\\Connection->runQueryCallback('update `player_...', Array, Object(Closure))
+#1 /var/www/vendor/laravel/framework/src/Illuminate/Database/Connection.php(584): Illuminate\\Database\\Connection->run('update `player_...', Array, Object(Closure))
+#2 /var/www/vendor/laravel/framework/src/Illuminate/Database/Connection.php(536): Illuminate\\Database\\Connection->affectingStatement('update `player_...', Array)
+#3 /var/www/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(3830): Illuminate\\Database\\Connection->update('update `player_...', Array)
+#4 /var/www/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(1175): Illuminate\\Database\\Query\\Builder->update(Object(Illuminate\\Support\\Collection))
+#5 /var/www/app/Console/Commands/MergeDuplicatePlayers.php(147): Illuminate\\Database\\Eloquent\\Builder->update(Array)
+#6 /var/www/vendor/laravel/framework/src/Illuminate/Database/Concerns/ManagesTransactions.php(32): App\\Console\\Commands\\MergeDuplicatePlayers->App\\Console\\Commands\\{closure}(Object(Illuminate\\Database\\MySqlConnection))
+#7 /var/www/vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php(495): Illuminate\\Database\\Connection->transaction(Object(Closure))
+#8 /var/www/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(361): Illuminate\\Database\\DatabaseManager->__call('transaction', Array)
+#9 /var/www/app/Console/Commands/MergeDuplicatePlayers.php(133): Illuminate\\Support\\Facades\\Facade::__callStatic('transaction', Array)
+#10 /var/www/app/Console/Commands/MergeDuplicatePlayers.php(64): App\\Console\\Commands\\MergeDuplicatePlayers->mergePlayers(Array)
+#11 /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): App\\Console\\Commands\\MergeDuplicatePlayers->handle()
+#12 /var/www/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#13 /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(95): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#14 /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#15 /var/www/vendor/laravel/framework/src/Illuminate/Container/Container.php(696): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#16 /var/www/vendor/laravel/framework/src/Illuminate/Console/Command.php(213): Illuminate\\Container\\Container->call(Array)
+#17 /var/www/vendor/symfony/console/Command/Command.php(341): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#18 /var/www/vendor/laravel/framework/src/Illuminate/Console/Command.php(182): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#19 /var/www/vendor/symfony/console/Application.php(1102): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#20 /var/www/vendor/symfony/console/Application.php(356): Symfony\\Component\\Console\\Application->doRunCommand(Object(App\\Console\\Commands\\MergeDuplicatePlayers), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#21 /var/www/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#22 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#23 /var/www/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#24 {main}
+
+[previous exception] [object] (PDOException(code: 23000): SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '106-1-1-fangraphs' for key 'player_scores_unique' at /var/www/vendor/laravel/framework/src/Illuminate/Database/Connection.php:596)
+[stacktrace]
+#0 /var/www/vendor/laravel/framework/src/Illuminate/Database/Connection.php(596): PDOStatement->execute()
+#1 /var/www/vendor/laravel/framework/src/Illuminate/Database/Connection.php(812): Illuminate\\Database\\Connection->Illuminate\\Database\\{closure}('update `player_...', Array)
+#2 /var/www/vendor/laravel/framework/src/Illuminate/Database/Connection.php(779): Illuminate\\Database\\Connection->runQueryCallback('update `player_...', Array, Object(Closure))
+#3 /var/www/vendor/laravel/framework/src/Illuminate/Database/Connection.php(584): Illuminate\\Database\\Connection->run('update `player_...', Array, Object(Closure))
+#4 /var/www/vendor/laravel/framework/src/Illuminate/Database/Connection.php(536): Illuminate\\Database\\Connection->affectingStatement('update `player_...', Array)
+#5 /var/www/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(3830): Illuminate\\Database\\Connection->update('update `player_...', Array)
+#6 /var/www/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(1175): Illuminate\\Database\\Query\\Builder->update(Object(Illuminate\\Support\\Collection))
+#7 /var/www/app/Console/Commands/MergeDuplicatePlayers.php(147): Illuminate\\Database\\Eloquent\\Builder->update(Array)
+#8 /var/www/vendor/laravel/framework/src/Illuminate/Database/Concerns/ManagesTransactions.php(32): App\\Console\\Commands\\MergeDuplicatePlayers->App\\Console\\Commands\\{closure}(Object(Illuminate\\Database\\MySqlConnection))
+#9 /var/www/vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php(495): Illuminate\\Database\\Connection->transaction(Object(Closure))
+#10 /var/www/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(361): Illuminate\\Database\\DatabaseManager->__call('transaction', Array)
+#11 /var/www/app/Console/Commands/MergeDuplicatePlayers.php(133): Illuminate\\Support\\Facades\\Facade::__callStatic('transaction', Array)
+#12 /var/www/app/Console/Commands/MergeDuplicatePlayers.php(64): App\\Console\\Commands\\MergeDuplicatePlayers->mergePlayers(Array)
+#13 /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): App\\Console\\Commands\\MergeDuplicatePlayers->handle()
+#14 /var/www/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#15 /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(95): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#16 /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#17 /var/www/vendor/laravel/framework/src/Illuminate/Container/Container.php(696): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#18 /var/www/vendor/laravel/framework/src/Illuminate/Console/Command.php(213): Illuminate\\Container\\Container->call(Array)
+#19 /var/www/vendor/symfony/console/Command/Command.php(341): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#20 /var/www/vendor/laravel/framework/src/Illuminate/Console/Command.php(182): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#21 /var/www/vendor/symfony/console/Application.php(1102): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#22 /var/www/vendor/symfony/console/Application.php(356): Symfony\\Component\\Console\\Application->doRunCommand(Object(App\\Console\\Commands\\MergeDuplicatePlayers), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#23 /var/www/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#24 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#25 /var/www/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#26 {main}
+"} 
+[2026-01-22 19:00:48] local.INFO: Fetching FanGraphs data {"url":"https://www.fangraphs.com/projections?type=fangraphsdc&stats=bat&pos=&team=0&players=0&lg=all&pageitems=2000&statgroup=fantasy&fantasypreset=dashboard"} 
+[2026-01-22 19:00:48] local.INFO: Extracted player data from FanGraphs __NEXT_DATA__ {"player_count":641,"player_type":"batters"} 
