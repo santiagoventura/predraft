@@ -146,7 +146,7 @@ class ScoringCalculator
             return [
                 'AB' => 'ab',
                 'PA' => 'pa',
-                'H' => 'singles', // Will be calculated
+                'H' => 'h', // Total hits - mapped to h field
                 '1B' => 'singles', // Will be calculated
                 '2B' => 'doubles',
                 '3B' => 'triples',
@@ -194,7 +194,7 @@ class ScoringCalculator
     protected function getStatValue(PlayerProjection $projection, string $statCode, string $playerType): ?float
     {
         // Special handling for singles (1B) - calculated as H - 2B - 3B - HR
-        if ($playerType === 'batter' && ($statCode === 'H' || $statCode === '1B')) {
+        if ($playerType === 'batter' && $statCode === '1B') {
             $hits = $projection->h ?? 0;
             $doubles = $projection->doubles ?? 0;
             $triples = $projection->triples ?? 0;
@@ -202,6 +202,11 @@ class ScoringCalculator
 
             $singles = $hits - $doubles - $triples - $hr;
             return max(0, $singles); // Ensure non-negative
+        }
+
+        // For 'H' stat code (total hits), return the actual hits value
+        if ($playerType === 'batter' && $statCode === 'H') {
+            return (float) ($projection->h ?? 0);
         }
 
         $statMap = $this->getStatMap($playerType);

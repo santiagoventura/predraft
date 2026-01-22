@@ -8989,3 +8989,85 @@ Did you mean one of these?
 "} 
 [2026-01-22 19:00:48] local.INFO: Fetching FanGraphs data {"url":"https://www.fangraphs.com/projections?type=fangraphsdc&stats=bat&pos=&team=0&players=0&lg=all&pageitems=2000&statgroup=fantasy&fantasypreset=dashboard"} 
 [2026-01-22 19:00:48] local.INFO: Extracted player data from FanGraphs __NEXT_DATA__ {"player_count":641,"player_type":"batters"} 
+[2026-01-22 19:25:33] local.INFO: Player Data Update: Starting update... (0%)  
+[2026-01-22 19:25:33] local.INFO: Player Data Update: Fetching batter projections from FanGraphs... (10%)  
+[2026-01-22 19:25:33] local.INFO: Fetching FanGraphs data {"url":"https://www.fangraphs.com/projections?type=fangraphsdc&stats=bat&pos=&team=0&players=0&lg=all&pageitems=2000&statgroup=fantasy&fantasypreset=dashboard"} 
+[2026-01-22 19:25:34] local.INFO: Extracted player data from FanGraphs __NEXT_DATA__ {"player_count":641,"player_type":"batters"} 
+[2026-01-22 19:25:34] local.INFO: Player Data Update: Batters: 641 processed (0 new, 641 updated) (30%)  
+[2026-01-22 19:25:34] local.INFO: Player Data Update: Fetching pitcher projections from FanGraphs... (40%)  
+[2026-01-22 19:25:34] local.INFO: Fetching FanGraphs data {"url":"https://www.fangraphs.com/projections?type=fangraphsdc&stats=pit&pos=all&team=0&players=0&lg=all&pageitems=2000&statgroup=fantasy&fantasypreset=dashboard"} 
+[2026-01-22 19:25:35] local.INFO: Extracted player data from FanGraphs __NEXT_DATA__ {"player_count":831,"player_type":"pitchers"} 
+[2026-01-22 19:25:37] local.INFO: Player Data Update: Pitchers: 831 processed (3 new, 828 updated) (70%)  
+[2026-01-22 19:25:37] local.INFO: Player Data Update: Calculating fantasy scores... (80%)  
+[2026-01-22 19:25:38] local.INFO: Calculated 1584 scores for MLB Champion League using fangraphs source  
+[2026-01-22 19:25:38] local.INFO: Player Data Update: Complete! Scored 1584 players across 1 leagues (100%)  
+[2026-01-22 19:28:05] local.INFO: Fetching FanGraphs data {"url":"https://www.fangraphs.com/projections?type=fangraphsdc&stats=bat&pos=&team=0&players=0&lg=all&pageitems=2000&statgroup=fantasy&fantasypreset=dashboard"} 
+[2026-01-22 19:28:06] local.INFO: Extracted player data from FanGraphs __NEXT_DATA__ {"player_count":641,"player_type":"batters"} 
+[2026-01-22 19:28:30] local.INFO: Player Data Update: Starting update... (0%)  
+[2026-01-22 19:28:30] local.INFO: Player Data Update: Fetching batter projections from FanGraphs... (10%)  
+[2026-01-22 19:28:30] local.INFO: Fetching FanGraphs data {"url":"https://www.fangraphs.com/projections?type=fangraphsdc&stats=bat&pos=&team=0&players=0&lg=all&pageitems=2000&statgroup=fantasy&fantasypreset=dashboard"} 
+[2026-01-22 19:28:30] local.INFO: Extracted player data from FanGraphs __NEXT_DATA__ {"player_count":641,"player_type":"batters"} 
+[2026-01-22 19:28:31] local.INFO: Player Data Update: Batters: 641 processed (0 new, 641 updated) (30%)  
+[2026-01-22 19:28:31] local.INFO: Player Data Update: Fetching pitcher projections from FanGraphs... (40%)  
+[2026-01-22 19:28:31] local.INFO: Fetching FanGraphs data {"url":"https://www.fangraphs.com/projections?type=fangraphsdc&stats=pit&pos=all&team=0&players=0&lg=all&pageitems=2000&statgroup=fantasy&fantasypreset=dashboard"} 
+[2026-01-22 19:28:31] local.INFO: Extracted player data from FanGraphs __NEXT_DATA__ {"player_count":831,"player_type":"pitchers"} 
+[2026-01-22 19:28:32] local.INFO: Player Data Update: Pitchers: 831 processed (0 new, 831 updated) (70%)  
+[2026-01-22 19:28:32] local.INFO: Player Data Update: Calculating fantasy scores... (80%)  
+[2026-01-22 19:28:33] local.INFO: Calculated 1584 scores for MLB Champion League using fangraphs source  
+[2026-01-22 19:28:33] local.INFO: Player Data Update: Complete! Scored 1584 players across 1 leagues (100%)  
+[2026-01-22 19:28:58] local.INFO: Fetching FanGraphs data {"url":"https://www.fangraphs.com/projections?type=fangraphsdc&stats=bat&pos=&team=0&players=0&lg=all&pageitems=2000&statgroup=fantasy&fantasypreset=dashboard"} 
+[2026-01-22 19:28:58] local.INFO: Extracted player data from FanGraphs __NEXT_DATA__ {"player_count":641,"player_type":"batters"} 
+[2026-01-22 19:28:59] local.INFO: Fetching FanGraphs data {"url":"https://www.fangraphs.com/projections?type=fangraphsdc&stats=pit&pos=all&team=0&players=0&lg=all&pageitems=2000&statgroup=fantasy&fantasypreset=dashboard"} 
+[2026-01-22 19:28:59] local.INFO: Extracted player data from FanGraphs __NEXT_DATA__ {"player_count":831,"player_type":"pitchers"} 
+[2026-01-22 19:29:52] local.INFO: Fetching FanGraphs data {"url":"https://www.fangraphs.com/projections?type=fangraphsdc&stats=bat&pos=&team=0&players=0&lg=all&pageitems=2000&statgroup=fantasy&fantasypreset=dashboard"} 
+[2026-01-22 19:29:52] local.INFO: Extracted player data from FanGraphs __NEXT_DATA__ {"player_count":641,"player_type":"batters"} 
+[2026-01-22 19:29:54] local.INFO: Fetching FanGraphs data {"url":"https://www.fangraphs.com/projections?type=fangraphsdc&stats=pit&pos=all&team=0&players=0&lg=all&pageitems=2000&statgroup=fantasy&fantasypreset=dashboard"} 
+[2026-01-22 19:29:54] local.INFO: Extracted player data from FanGraphs __NEXT_DATA__ {"player_count":831,"player_type":"pitchers"} 
+[2026-01-22 19:30:07] local.INFO: Player Data Update: Starting update... (0%)  
+[2026-01-22 19:30:07] local.INFO: Player Data Update: Fetching batter projections from FanGraphs... (10%)  
+[2026-01-22 19:30:07] local.INFO: Fetching FanGraphs data {"url":"https://www.fangraphs.com/projections?type=fangraphsdc&stats=bat&pos=&team=0&players=0&lg=all&pageitems=2000&statgroup=fantasy&fantasypreset=dashboard"} 
+[2026-01-22 19:30:07] local.INFO: Extracted player data from FanGraphs __NEXT_DATA__ {"player_count":641,"player_type":"batters"} 
+[2026-01-22 19:30:08] local.INFO: Player Data Update: Batters: 641 processed (0 new, 641 updated) (30%)  
+[2026-01-22 19:30:08] local.INFO: Player Data Update: Fetching pitcher projections from FanGraphs... (40%)  
+[2026-01-22 19:30:08] local.INFO: Fetching FanGraphs data {"url":"https://www.fangraphs.com/projections?type=fangraphsdc&stats=pit&pos=all&team=0&players=0&lg=all&pageitems=2000&statgroup=fantasy&fantasypreset=dashboard"} 
+[2026-01-22 19:30:08] local.INFO: Extracted player data from FanGraphs __NEXT_DATA__ {"player_count":831,"player_type":"pitchers"} 
+[2026-01-22 19:30:10] local.INFO: Player Data Update: Pitchers: 831 processed (0 new, 831 updated) (70%)  
+[2026-01-22 19:30:10] local.INFO: Player Data Update: Calculating fantasy scores... (80%)  
+[2026-01-22 19:30:11] local.INFO: Calculated 1584 scores for MLB Champion League using fangraphs source  
+[2026-01-22 19:30:11] local.INFO: Player Data Update: Complete! Scored 1584 players across 1 leagues (100%)  
+[2026-01-22 19:31:10] local.INFO: Player Data Update: Starting update... (0%)  
+[2026-01-22 19:31:10] local.INFO: Player Data Update: Fetching batter projections from FanGraphs... (10%)  
+[2026-01-22 19:31:10] local.INFO: Fetching FanGraphs data {"url":"https://www.fangraphs.com/projections?type=fangraphsdc&stats=bat&pos=&team=0&players=0&lg=all&pageitems=2000&statgroup=fantasy&fantasypreset=dashboard"} 
+[2026-01-22 19:31:10] local.INFO: Extracted player data from FanGraphs __NEXT_DATA__ {"player_count":641,"player_type":"batters"} 
+[2026-01-22 19:31:12] local.INFO: Player Data Update: Batters: 641 processed (0 new, 641 updated) (30%)  
+[2026-01-22 19:31:12] local.INFO: Player Data Update: Fetching pitcher projections from FanGraphs... (40%)  
+[2026-01-22 19:31:12] local.INFO: Fetching FanGraphs data {"url":"https://www.fangraphs.com/projections?type=fangraphsdc&stats=pit&pos=all&team=0&players=0&lg=all&pageitems=2000&statgroup=fantasy&fantasypreset=dashboard"} 
+[2026-01-22 19:31:12] local.INFO: Extracted player data from FanGraphs __NEXT_DATA__ {"player_count":831,"player_type":"pitchers"} 
+[2026-01-22 19:31:14] local.INFO: Player Data Update: Pitchers: 831 processed (0 new, 831 updated) (70%)  
+[2026-01-22 19:31:14] local.INFO: Player Data Update: Calculating fantasy scores... (80%)  
+[2026-01-22 19:31:15] local.INFO: Calculated 1584 scores for MLB Champion League using fangraphs source  
+[2026-01-22 19:31:15] local.INFO: Player Data Update: Complete! Scored 1584 players across 1 leagues (100%)  
+[2026-01-22 19:33:08] local.INFO: Player Data Update: Starting update... (0%)  
+[2026-01-22 19:33:08] local.INFO: Player Data Update: Fetching batter projections from FanGraphs... (10%)  
+[2026-01-22 19:33:08] local.INFO: Fetching FanGraphs data {"url":"https://www.fangraphs.com/projections?type=fangraphsdc&stats=bat&pos=&team=0&players=0&lg=all&pageitems=2000&statgroup=fantasy&fantasypreset=dashboard"} 
+[2026-01-22 19:33:09] local.INFO: Extracted player data from FanGraphs __NEXT_DATA__ {"player_count":641,"player_type":"batters"} 
+[2026-01-22 19:33:10] local.INFO: Player Data Update: Batters: 641 processed (0 new, 641 updated) (30%)  
+[2026-01-22 19:33:10] local.INFO: Player Data Update: Fetching pitcher projections from FanGraphs... (40%)  
+[2026-01-22 19:33:10] local.INFO: Fetching FanGraphs data {"url":"https://www.fangraphs.com/projections?type=fangraphsdc&stats=pit&pos=all&team=0&players=0&lg=all&pageitems=2000&statgroup=fantasy&fantasypreset=dashboard"} 
+[2026-01-22 19:33:10] local.INFO: Extracted player data from FanGraphs __NEXT_DATA__ {"player_count":831,"player_type":"pitchers"} 
+[2026-01-22 19:33:12] local.INFO: Player Data Update: Pitchers: 831 processed (0 new, 831 updated) (70%)  
+[2026-01-22 19:33:12] local.INFO: Player Data Update: Calculating fantasy scores... (80%)  
+[2026-01-22 19:33:13] local.INFO: Calculated 1584 scores for MLB Champion League using fangraphs source  
+[2026-01-22 19:33:13] local.INFO: Player Data Update: Complete! Scored 1584 players across 1 leagues (100%)  
+[2026-01-22 19:35:58] local.INFO: Player Data Update: Starting update... (0%)  
+[2026-01-22 19:35:58] local.INFO: Player Data Update: Fetching batter projections from FanGraphs... (10%)  
+[2026-01-22 19:35:58] local.INFO: Fetching FanGraphs data {"url":"https://www.fangraphs.com/projections?type=fangraphsdc&stats=bat&pos=&team=0&players=0&lg=all&pageitems=2000&statgroup=fantasy&fantasypreset=dashboard"} 
+[2026-01-22 19:35:58] local.INFO: Extracted player data from FanGraphs __NEXT_DATA__ {"player_count":641,"player_type":"batters"} 
+[2026-01-22 19:35:59] local.INFO: Player Data Update: Batters: 641 processed (0 new, 641 updated) (30%)  
+[2026-01-22 19:35:59] local.INFO: Player Data Update: Fetching pitcher projections from FanGraphs... (40%)  
+[2026-01-22 19:35:59] local.INFO: Fetching FanGraphs data {"url":"https://www.fangraphs.com/projections?type=fangraphsdc&stats=pit&pos=all&team=0&players=0&lg=all&pageitems=2000&statgroup=fantasy&fantasypreset=dashboard"} 
+[2026-01-22 19:35:59] local.INFO: Extracted player data from FanGraphs __NEXT_DATA__ {"player_count":831,"player_type":"pitchers"} 
+[2026-01-22 19:36:01] local.INFO: Player Data Update: Pitchers: 831 processed (0 new, 831 updated) (70%)  
+[2026-01-22 19:36:01] local.INFO: Player Data Update: Calculating fantasy scores... (80%)  
+[2026-01-22 19:36:02] local.INFO: Calculated 1584 scores for MLB Champion League using fangraphs source  
+[2026-01-22 19:36:02] local.INFO: Player Data Update: Complete! Scored 1584 players across 1 leagues (100%)  

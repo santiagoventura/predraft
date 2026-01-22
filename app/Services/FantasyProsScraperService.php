@@ -559,10 +559,35 @@ PROMPT;
         $normalizedSearch = $this->normalizeName($searchName);
         $isPitcher = $playerType === 'pitchers';
 
-        // First try exact match (case-insensitive)
-        $player = Player::whereRaw('LOWER(name) = ?', [strtolower(trim($searchName))])->first();
+        // First try exact match with matching player type
+        // This handles cases like "Shohei Ohtani (Batter)" and "Shohei Ohtani (Pitcher)"
+        $player = Player::whereRaw('LOWER(name) = ?', [strtolower(trim($searchName))])
+            ->where('is_pitcher', $isPitcher)
+            ->first();
         if ($player) {
             return $player;
+        }
+
+        // Try exact match without type filter (for players without explicit type markers)
+        $player = Player::whereRaw('LOWER(name) = ?', [strtolower(trim($searchName))])->first();
+        if ($player) {
+            // Only return if the player type matches or if it's not a two-way player
+            // Check if there's another version of this player (batter/pitcher split)
+            $otherVersion = Player::whereRaw('LOWER(name) LIKE ?', ['%' . strtolower(trim($searchName)) . '%'])
+                ->where('is_pitcher', $isPitcher)
+                ->where('id', '!=', $player->id)
+                ->first();
+
+            // If there's a matching version for the correct type, use that instead
+            if ($otherVersion) {
+                return $otherVersion;
+            }
+
+            // If no other version and types match, return this player
+            if ($player->is_pitcher === $isPitcher) {
+                return $player;
+            }
+            // Otherwise fall through to fuzzy matching
         }
 
         // Get candidates using LIKE query
@@ -573,7 +598,15 @@ PROMPT;
         $lastName = preg_replace('/\b(Jr|Sr|II|III|IV)\.?\b/i', '', $lastName);
         $lastName = trim($lastName);
 
-        $candidates = Player::where('name', 'LIKE', '%' . $lastName . '%')->get();
+        // First try to find candidates that match the player type
+        $candidates = Player::where('name', 'LIKE', '%' . $lastName . '%')
+            ->where('is_pitcher', $isPitcher)
+            ->get();
+
+        // If no candidates with matching type, fall back to all candidates
+        if ($candidates->isEmpty()) {
+            $candidates = Player::where('name', 'LIKE', '%' . $lastName . '%')->get();
+        }
 
         if ($candidates->isEmpty()) {
             return null;
@@ -586,26 +619,30 @@ PROMPT;
         foreach ($candidates as $candidate) {
             $normalizedCandidate = $this->normalizeName($candidate->name);
 
-            // Exact normalized match
-            if ($normalizedCandidate === $normalizedSearch) {
+            // Exact normalized match - but only if player type matches
+            if ($normalizedCandidate === $normalizedSearch && $candidate->is_pitcher === $isPitcher) {
                 return $candidate;
             }
 
             // Calculate similarity score
             similar_text($normalizedSearch, $normalizedCandidate, $percent);
 
-            // Bonus for matching player type (pitcher vs batter)
+            // Strong preference for matching player type (pitcher vs batter)
+            // This is critical for two-way players like Ohtani
             $typeBonus = 0;
             if ($isPitcher && $candidate->is_pitcher) {
-                $typeBonus = 10;
+                $typeBonus = 20;
             } elseif (!$isPitcher && !$candidate->is_pitcher) {
-                $typeBonus = 10;
+                $typeBonus = 20;
+            } else {
+                // Penalty for wrong type
+                $typeBonus = -50;
             }
 
             $score = $percent + $typeBonus;
 
-            // Must be at least 80% similar (before type bonus)
-            if ($percent >= 80 && $score > $bestScore) {
+            // Must be at least 80% similar (before type bonus) and score must be positive
+            if ($percent >= 80 && $score > $bestScore && $score > 0) {
                 $bestScore = $score;
                 $bestMatch = $candidate;
             }
