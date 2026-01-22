@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: mlb_draft_helper_app
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+      - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - mlb_draft_helper_network
+    depends_on:
+      - db
+
+  nginx:
+    image: nginx:alpine
+    container_name: mlb_draft_helper_nginx
+    restart: unless-stopped
+    ports:
+      - "8090:80"
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+    networks:
+      - mlb_draft_helper_network
+    depends_on:
+      - app
+
+  db:
+    image: mariadb:11.2
+    container_name: mlb_draft_helper_db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE:-mlb_draft}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-secret}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-secret}
+      MYSQL_USER: ${DB_USERNAME:-mlb_draft_user}
+    ports:
+      - "3308:3306"
+    volumes:
+      - mlb_draft_helper_dbdata:/var/lib/mysql
+      - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
+    networks:
+      - mlb_draft_helper_network
+
+networks:
+  mlb_draft_helper_network:
+    driver: bridge
+
+volumes:
+  mlb_draft_helper_dbdata:
+    driver: local
+
